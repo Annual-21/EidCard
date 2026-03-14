@@ -5,9 +5,12 @@ import MessagePage from './components/MessagePage'
 
 export default function App() {
   const { to, from } = getUrlParams()
+
   const p        = new URLSearchParams(window.location.search)
   const isShared = p.get('shared') === 'true'
-  const autoOpen     = !!(to || from) && !isShared
+
+  // Only auto-open if names are in URL AND it is NOT a shared link
+  const autoOpen = !!(to || from) && !isShared
 
   const [open, setOpen] = useState(autoOpen)
   const [vis,  setVis]  = useState(autoOpen)
@@ -26,7 +29,7 @@ export default function App() {
           transform:  vis ? 'scale(1)' : 'scale(0.96)',
           transition: 'opacity 0.7s ease, transform 0.7s ease',
         }}>
-          <MessagePage />
+          <MessagePage isShared={isShared} />
         </div>
       )}
     </>

@@ -65,7 +65,7 @@ export default function MessagePage({ isShared = false }) {
           border:        '1px solid #c9a84c44',
           zIndex:        10,
         }}>
-          🏮 Eid begins in {days} day{days !== 1 ? 's' : ''}
+          Eid begins in {days} day{days !== 1 ? 's' : ''}
         </div>
       )}
 
