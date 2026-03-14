@@ -9,11 +9,10 @@ export default function App() {
   const p        = new URLSearchParams(window.location.search)
   const isShared = p.get('shared') === 'true'
 
-  // Only auto-open if names are in URL AND it is NOT a shared link
-  const autoOpen = !!(to || from) && !isShared
-
-  const [open, setOpen] = useState(autoOpen)
-  const [vis,  setVis]  = useState(autoOpen)
+  // Always show the cover first when opening any link
+  // Never auto-open the message page directly
+  const [open, setOpen] = useState(false)
+  const [vis,  setVis]  = useState(false)
 
   function handleOpen() {
     setOpen(true)
