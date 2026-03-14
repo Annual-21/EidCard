@@ -1,0 +1,94 @@
+export default function NotebookMessage({ msg, to, from }) {
+  return (
+    <div style={{
+      background:      '#fdf6e3',
+      borderRadius:    4,
+      padding:         '32px 36px 32px 56px',
+      position:        'relative',
+      maxWidth:        600,
+      width:           '100%',
+      boxShadow:       '4px 6px 24px #0005, -2px 0 8px #0002',
+      backgroundImage: 'repeating-linear-gradient(transparent, transparent 27px, #b8c9e8 28px)',
+      lineHeight:      '28px',
+    }}>
+      {/* Red margin line */}
+      <div style={{
+        position:   'absolute',
+        left:       44,
+        top:        0,
+        bottom:     0,
+        width:      2,
+        background: '#e05a5a88',
+      }} />
+
+      {/* Spiral holes */}
+      {[0, 1, 2, 3, 4].map(i => (
+        <div key={i} style={{
+          position:     'absolute',
+          left:         12,
+          top:          `${12 + i * 20}%`,
+          width:        12,
+          height:       12,
+          borderRadius: '50%',
+          background:   '#0d2b1e',
+          opacity:      0.25,
+        }} />
+      ))}
+
+      {/* Eid greeting */}
+      <p style={{
+        fontFamily: 'Playfair Display, Georgia, serif',
+        color:      '#c9a84c',
+        fontSize:   'clamp(1rem, 2.5vw, 1.3rem)',
+        fontWeight: 'bold',
+      }}>
+        Eid Mubarak! 
+      </p>
+
+      {/* Salutation */}
+      <p style={{ color: '#1a4731', fontStyle: 'italic', marginBottom: 16, fontSize: '0.9rem' }}>
+        Dear {to || 'Friend'},
+      </p>
+
+      {/* Arabic verse */}
+      <div style={{
+        fontFamily:    '"Amiri", "Scheherazade New", "Noto Naskh Arabic", serif',
+        fontSize:      'clamp(1.4rem, 4vw, 2rem)',
+        direction:     'rtl',
+        textAlign:     'right',
+        color:         '#2d1a0e',
+        lineHeight:    2,
+        marginBottom:  20,
+        borderBottom:  '1px solid #c9a84c44',
+        paddingBottom: 16,
+      }}>
+        {msg.arabic}
+      </div>
+
+      {/* English translation */}
+      <p style={{
+        fontFamily:   "Cormorant Garamond, Georgia, serif",
+        fontStyle:    'italic',
+        color:        '#3a2a1a',
+        fontSize:     'clamp(0.85rem, 2vw, 1rem)',
+        marginBottom: 20,
+        lineHeight:   1.8,
+      }}>
+        "{msg.translation}"
+      </p>
+
+      {/* Reference */}
+      <p style={{ color: '#1a4731', fontWeight: 'bold', fontSize: '0.85rem', marginBottom: 24 }}>
+        — {msg.reference}
+      </p>
+
+
+      {/* From */}
+      {from && (
+        <p style={{ color: '#5a3e28', fontStyle: 'italic', fontFamily: 'Dancing Script, cursive', marginTop: 12, fontSize: '0.9rem' }}>
+          {from}
+        </p>
+      )}
+    </div>
+  )
+}
