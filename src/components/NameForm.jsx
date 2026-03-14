@@ -1,16 +1,18 @@
-const inputStyle = {
-  background:   '#ffffff22',
-  border:       '1px solid #c9a84c66',
-  borderRadius: 6,
-  padding:      '8px 14px',
-  color:        '#e8d5a0',
-  fontSize:     '0.95rem',
-  width:        '100%',
-  outline:      'none',
-  fontFamily:   'Georgia, serif',
-}
+export default function NameForm({ to, from, onChange, readOnly = false }) {
+  const inputStyle = {
+    background:   readOnly ? 'transparent' : '#ffffff22',
+    border:       readOnly ? 'none' : '1px solid #c9a84c66',
+    borderBottom: readOnly ? '1px solid #c9a84c44' : undefined,
+    borderRadius: readOnly ? 0 : 6,
+    padding:      '8px 14px',
+    color:        '#e8d5a0',
+    fontSize:     '0.95rem',
+    width:        '100%',
+    outline:      'none',
+    fontFamily:   'Georgia, serif',
+    cursor:       readOnly ? 'default' : 'text',
+  }
 
-export default function NameForm({ to, from, onChange }) {
   return (
     <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', width: '100%', maxWidth: 600 }}>
       <div style={{ flex: 1, minWidth: 140 }}>
@@ -27,7 +29,8 @@ export default function NameForm({ to, from, onChange }) {
           style={inputStyle}
           placeholder="Recipient name"
           value={to}
-          onChange={e => onChange('to', e.target.value)}
+          onChange={e => !readOnly && onChange('to', e.target.value)}
+          readOnly={readOnly}
         />
       </div>
 
@@ -45,7 +48,8 @@ export default function NameForm({ to, from, onChange }) {
           style={inputStyle}
           placeholder="Your name"
           value={from}
-          onChange={e => onChange('from', e.target.value)}
+          onChange={e => !readOnly && onChange('from', e.target.value)}
+          readOnly={readOnly}
         />
       </div>
     </div>

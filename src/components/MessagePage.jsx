@@ -16,7 +16,7 @@ function daysUntilEid() {
   return d > 0 ? d : 0
 }
 
-export default function MessagePage() {
+export default function MessagePage({ isShared = false }) {
   const params                     = getUrlParams()
   const { msg, loading, generate } = useGenerateEidMessage()
   const [to,      setTo]           = useState(params.to)
@@ -124,6 +124,7 @@ export default function MessagePage() {
           to={to}
           from={from}
           onChange={(k, v) => k === 'to' ? setTo(v) : setFrom(v)}
+          readOnly={isShared}
         />
       </div>
 

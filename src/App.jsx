@@ -5,7 +5,9 @@ import MessagePage from './components/MessagePage'
 
 export default function App() {
   const { to, from } = getUrlParams()
-  const autoOpen     = !!(to || from)
+  const p        = new URLSearchParams(window.location.search)
+  const isShared = p.get('shared') === 'true'
+  const autoOpen     = !!(to || from) && !isShared
 
   const [open, setOpen] = useState(autoOpen)
   const [vis,  setVis]  = useState(autoOpen)
