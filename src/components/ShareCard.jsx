@@ -19,15 +19,20 @@ export default function ShareCard({ to, from }) {
 
   // Force the shared link to always open the cover first
   // by adding &shared=true — App.jsx will read this
-  function buildLink() {
+  function buildSharedLink() {
     const base = generateShareLink(to, from)
     const url  = new URL(base)
     url.searchParams.set('shared', 'true')
     return url.toString()
   }
 
+  // Sender link — includes To/From bars and personalize section
+  function buildSenderLink() {
+    return generateShareLink(to, from)
+  }
+
   async function handleShare() {
-    const link = buildLink()
+    const link = buildSharedLink()
     if (navigator.share) {
       await navigator.share({
         title: 'Eid Mubarak!',
@@ -35,12 +40,13 @@ export default function ShareCard({ to, from }) {
         url:   link,
       })
     } else {
-      copyLink()
+      // fallback to copying recipient link if Web Share API unavailable
+      navigator.clipboard.writeText(link)
     }
   }
 
   function copyLink() {
-    const link = buildLink()
+    const link = buildSenderLink()
     navigator.clipboard.writeText(link).then(() => {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
@@ -49,9 +55,11 @@ export default function ShareCard({ to, from }) {
 
   return (
     <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
-      <button onClick={handleShare} style={btnStyle}>Share Card</button>
-      <button onClick={copyLink}    style={btnStyle}>
-        {copied ? '✅ Copied!' : ':)Copy Link'}
+      <button onClick={handleShare} style={btnStyle}>
+        Share Card
+      </button>
+      <button onClick={copyLink} style={btnStyle}>
+        {copied ? '✅ Copied!' : 'Copy Link'}
       </button>
     </div>
   )
