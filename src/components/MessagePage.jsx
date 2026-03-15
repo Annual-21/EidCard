@@ -153,11 +153,11 @@ export default function MessagePage({ isShared = false }) {
       )}
 
       {/* Share buttons — hidden for recipients */}
-      {!isShared && (
+      
         <div style={{ zIndex: 10 }}>
-          <ShareCard to={to} from={from} />
+          <ShareCard to={to} from={from} isShared={isShared} />
         </div>
-      )}
+      
 
       {/* Decorative gold border */}
       <div style={{
