@@ -80,7 +80,7 @@ export default function ShareCard({ to, from, isShared = false }) {
       {!isShared && (
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
           <button onClick={handleShare} style={btnStyle}>
-            🔗 Share Card
+            Share Card
           </button>
           <button onClick={copyLink} style={btnStyle}>
             {copied ? '✅ Copied!' : 'Copy Link'}
